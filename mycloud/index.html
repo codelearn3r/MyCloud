@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MyCloud - Your personal photo gallery. Upload, organize, and relive your memories beautifully.">
+    <title>MyCloud — Photos & Memories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-bg-orbs">
+            <div class="login-orb login-orb-1"></div>
+            <div class="login-orb login-orb-2"></div>
+            <div class="login-orb login-orb-3"></div>
+        </div>
+        <div class="login-card">
+            <div class="login-brand">
+                <div class="login-brand-icon">
+                    <span class="material-icons-outlined">cloud</span>
+                </div>
+                <h1 class="login-brand-name">MyCloud</h1>
+                <p class="login-tagline">Your photos. Your memories. Beautifully stored.</p>
+            </div>
+
+            <!-- ===== SIGN IN FORM ===== -->
+            <form id="login-form" class="auth-form active" autocomplete="off">
+                <div class="login-form-group">
+                    <label for="login-userid">
+                        <span class="material-icons-outlined">person</span>
+                        User ID
+                    </label>
+                    <input type="text" id="login-userid" placeholder="Enter your User ID" required autofocus>
+                </div>
+                <div class="login-form-group">
+                    <label for="login-password">
+                        <span class="material-icons-outlined">lock</span>
+                        Password
+                    </label>
+                    <div class="login-password-wrapper">
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <button type="button" id="toggle-password" class="icon-btn login-eye-btn"
+                            aria-label="Show password">
+                            <span class="material-icons-outlined">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="login-error" class="login-error hidden">
+                    <span class="material-icons-outlined">error_outline</span>
+                    <span id="login-error-text">Invalid credentials</span>
+                </div>
+                <button type="submit" id="login-btn" class="login-submit-btn">
+                    <span class="login-btn-text">Sign In</span>
+                    <span class="material-icons-outlined login-btn-icon">arrow_forward</span>
+                </button>
+                <div class="auth-switch">
+                    <span>Don't have an account?</span>
+                    <button type="button" id="show-signup" class="auth-switch-btn">Create Account</button>
+                </div>
+            </form>
+
+            <!-- ===== CREATE ACCOUNT FORM ===== -->
+            <form id="signup-form" class="auth-form" autocomplete="off">
+                <div class="login-form-group">
+                    <label for="signup-name">
+                        <span class="material-icons-outlined">badge</span>
+                        Full Name
+                    </label>
+                    <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="login-form-group">
+                    <label for="signup-userid">
+                        <span class="material-icons-outlined">person</span>
+                        User ID
+                    </label>
+                    <input type="text" id="signup-userid" placeholder="Choose a User ID" required>
+                </div>
+                <div class="login-form-group">
+                    <label for="signup-password">
+                        <span class="material-icons-outlined">lock</span>
+                        Password
+                    </label>
+                    <div class="login-password-wrapper">
+                        <input type="password" id="signup-password" placeholder="Create a password" required
+                            minlength="6">
+                        <button type="button" id="toggle-signup-password" class="icon-btn login-eye-btn"
+                            aria-label="Show password">
+                            <span class="material-icons-outlined">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="login-form-group">
+                    <label for="signup-confirm">
+                        <span class="material-icons-outlined">lock_reset</span>
+                        Confirm Password
+                    </label>
+                    <div class="login-password-wrapper">
+                        <input type="password" id="signup-confirm" placeholder="Re-enter your password" required>
+                    </div>
+                </div>
+                <div id="signup-error" class="login-error hidden">
+                    <span class="material-icons-outlined">error_outline</span>
+                    <span id="signup-error-text">Error</span>
+                </div>
+                <button type="submit" id="signup-btn" class="login-submit-btn">
+                    <span class="login-btn-text">Create Account</span>
+                    <span class="material-icons-outlined login-btn-icon">person_add</span>
+                </button>
+                <div class="auth-switch">
+                    <span>Already have an account?</span>
+                    <button type="button" id="show-login" class="auth-switch-btn">Sign In</button>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <span class="material-icons-outlined">shield</span>
+                <span>Your data stays private and secure</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TOP HEADER BAR ===== -->
+    <header id="app-header">
+        <div class="header-left">
+            <button id="menu-toggle" class="icon-btn" aria-label="Toggle sidebar">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <div class="brand">
+                <div class="brand-icon">
+                    <span class="material-icons-outlined">cloud</span>
+                </div>
+                <h1 class="brand-name">MyCloud</h1>
+            </div>
+        </div>
+        <div class="header-center">
+            <div id="search-bar">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" id="search-input" placeholder="Search your photos" autocomplete="off">
+                <button id="search-clear" class="icon-btn hidden" aria-label="Clear search">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="btn-upload-header" class="icon-btn" title="Upload photos">
+                <span class="material-icons-outlined">add_photo_alternate</span>
+            </button>
+            <button id="btn-grid-toggle" class="icon-btn" title="Change layout">
+                <span class="material-icons-outlined">grid_view</span>
+            </button>
+            <button id="btn-select-mode" class="icon-btn" title="Select photos">
+                <span class="material-icons-outlined">check_circle_outline</span>
+            </button>
+            <div id="user-avatar" title="My Account">
+                <span>M</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== SIDEBAR NAVIGATION ===== -->
+    <aside id="sidebar" class="sidebar-open">
+        <nav id="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="photos">
+                <span class="material-icons-outlined">photo_library</span>
+                <span class="nav-label">Photos</span>
+            </a>
+            <a href="#" class="nav-item" data-view="explore">
+                <span class="material-icons-outlined">explore</span>
+                <span class="nav-label">Explore</span>
+            </a>
+            <a href="#" class="nav-item" data-view="sharing">
+                <span class="material-icons-outlined">people</span>
+                <span class="nav-label">Sharing</span>
+            </a>
+            <a href="#" class="nav-item" data-view="favorites">
+                <span class="material-icons-outlined">favorite_border</span>
+                <span class="nav-label">Favorites</span>
+            </a>
+            <a href="#" class="nav-item" data-view="albums">
+                <span class="material-icons-outlined">photo_album</span>
+                <span class="nav-label">Albums</span>
+            </a>
+            <a href="#" class="nav-item" data-view="archive">
+                <span class="material-icons-outlined">archive</span>
+                <span class="nav-label">Archive</span>
+            </a>
+            <a href="#" class="nav-item" data-view="trash">
+                <span class="material-icons-outlined">delete_outline</span>
+                <span class="nav-label">Trash</span>
+            </a>
+            <div class="nav-divider"></div>
+            <div class="storage-section">
+                <div class="storage-header">
+                    <span class="material-icons-outlined">cloud_done</span>
+                    <span class="nav-label">Storage</span>
+                </div>
+                <div class="storage-bar-container">
+                    <div class="storage-bar">
+                        <div class="storage-bar-fill" id="storage-fill"></div>
+                    </div>
+                    <span class="storage-text" id="storage-text">0 MB of 15 GB used</span>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <main id="main-content">
+
+        <!-- Photos View (Default) -->
+        <section id="view-photos" class="view active">
+            <div class="view-header">
+                <h2 class="view-title" id="photos-title">Photos</h2>
+                <div class="view-actions">
+                    <button class="chip-btn active" data-filter="all">All</button>
+                    <button class="chip-btn" data-filter="today">Today</button>
+                    <button class="chip-btn" data-filter="week">This Week</button>
+                    <button class="chip-btn" data-filter="month">This Month</button>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">add_a_photo</span>
+                </div>
+                <h3>Your memories start here</h3>
+                <p>Upload your first photos to begin building your cloud gallery</p>
+                <button id="btn-upload-empty" class="btn-primary">
+                    <span class="material-icons-outlined">cloud_upload</span>
+                    Upload Photos
+                </button>
+            </div>
+
+            <!-- Photo Grid -->
+            <div id="photo-grid" class="photo-grid hidden"></div>
+        </section>
+
+        <!-- Favorites View -->
+        <section id="view-favorites" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Favorites</h2>
+            </div>
+            <div id="favorites-grid" class="photo-grid"></div>
+            <div id="favorites-empty" class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">favorite</span>
+                </div>
+                <h3>No favorites yet</h3>
+                <p>Like photos to see them here</p>
+            </div>
+        </section>
+
+        <!-- Albums View -->
+        <section id="view-albums" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Albums</h2>
+                <button id="btn-create-album" class="btn-primary btn-sm">
+                    <span class="material-icons-outlined">add</span>
+                    New Album
+                </button>
+            </div>
+            <div id="albums-grid" class="albums-grid"></div>
+            <div id="albums-empty" class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">photo_album</span>
+                </div>
+                <h3>No albums yet</h3>
+                <p>Create albums to organize your photos</p>
+                <button id="btn-create-album-empty" class="btn-primary">
+                    <span class="material-icons-outlined">add</span>
+                    Create Album
+                </button>
+            </div>
+        </section>
+
+        <!-- Explore View -->
+        <section id="view-explore" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Explore</h2>
+            </div>
+            <div class="explore-categories">
+                <div class="category-card" data-category="people">
+                    <span class="material-icons-outlined">face</span>
+                    <span>People</span>
+                </div>
+                <div class="category-card" data-category="places">
+                    <span class="material-icons-outlined">place</span>
+                    <span>Places</span>
+                </div>
+                <div class="category-card" data-category="things">
+                    <span class="material-icons-outlined">category</span>
+                    <span>Things</span>
+                </div>
+            </div>
+            <div id="explore-grid" class="photo-grid"></div>
+        </section>
+
+        <!-- Sharing View -->
+        <section id="view-sharing" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Sharing</h2>
+            </div>
+            <div class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">share</span>
+                </div>
+                <h3>Share your memories</h3>
+                <p>Create shared albums and conversations with friends and family</p>
+            </div>
+        </section>
+
+        <!-- Archive View -->
+        <section id="view-archive" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Archive</h2>
+            </div>
+            <div id="archive-grid" class="photo-grid"></div>
+            <div id="archive-empty" class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">archive</span>
+                </div>
+                <h3>Archive is empty</h3>
+                <p>Photos you archive will appear here</p>
+            </div>
+        </section>
+
+        <!-- Trash View -->
+        <section id="view-trash" class="view">
+            <div class="view-header">
+                <h2 class="view-title">Trash</h2>
+                <button id="btn-empty-trash" class="btn-danger btn-sm hidden">
+                    <span class="material-icons-outlined">delete_forever</span>
+                    Empty Trash
+                </button>
+            </div>
+            <div id="trash-grid" class="photo-grid"></div>
+            <div id="trash-empty" class="empty-state">
+                <div class="empty-illustration">
+                    <span class="material-icons-outlined">delete_sweep</span>
+                </div>
+                <h3>Nothing in trash</h3>
+                <p>Items in trash will be permanently deleted after 30 days</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== UPLOAD MODAL ===== -->
+    <div id="upload-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Upload Photos</h3>
+                <button class="icon-btn modal-close" aria-label="Close">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-zone-content">
+                        <span class="material-icons-outlined drop-icon">cloud_upload</span>
+                        <h3>Drag & drop photos here</h3>
+                        <p>or click to browse files</p>
+                        <span class="drop-formats">Supports JPG, PNG, GIF, WebP</span>
+                    </div>
+                    <input type="file" id="file-input" multiple accept="image/*" hidden>
+                </div>
+                <div id="upload-preview" class="upload-preview hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-upload" class="btn-secondary">Cancel</button>
+                <button id="btn-confirm-upload" class="btn-primary" disabled>
+                    <span class="material-icons-outlined">cloud_upload</span>
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CREATE ALBUM MODAL ===== -->
+    <div id="album-modal" class="modal-overlay hidden">
+        <div class="modal modal-sm">
+            <div class="modal-header">
+                <h3>New Album</h3>
+                <button class="icon-btn modal-close" aria-label="Close">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="album-name-input">Album name</label>
+                    <input type="text" id="album-name-input" class="text-input" placeholder="Enter album name"
+                        maxlength="50">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-album" class="btn-secondary">Cancel</button>
+                <button id="btn-confirm-album" class="btn-primary" disabled>Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div id="lightbox" class="lightbox hidden">
+        <div class="lightbox-header">
+            <button class="icon-btn lightbox-back" aria-label="Back">
+                <span class="material-icons-outlined">arrow_back</span>
+            </button>
+            <div class="lightbox-date" id="lightbox-date"></div>
+            <div class="lightbox-actions">
+                <button class="icon-btn" id="lb-favorite" title="Favorite">
+                    <span class="material-icons-outlined">favorite_border</span>
+                </button>
+                <button class="icon-btn" id="lb-info" title="Info">
+                    <span class="material-icons-outlined">info</span>
+                </button>
+                <button class="icon-btn" id="lb-download" title="Download">
+                    <span class="material-icons-outlined">file_download</span>
+                </button>
+                <button class="icon-btn" id="lb-delete" title="Delete">
+                    <span class="material-icons-outlined">delete_outline</span>
+                </button>
+            </div>
+        </div>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous">
+            <span class="material-icons-outlined">chevron_left</span>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Photo preview">
+        </div>
+        <button class="lightbox-nav lightbox-next" aria-label="Next">
+            <span class="material-icons-outlined">chevron_right</span>
+        </button>
+        <!-- Info Panel -->
+        <div id="lightbox-info-panel" class="info-panel hidden">
+            <div class="info-panel-header">
+                <h3>Details</h3>
+                <button class="icon-btn" id="close-info-panel">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            <div class="info-panel-body">
+                <div class="info-row">
+                    <span class="material-icons-outlined">image</span>
+                    <div>
+                        <div class="info-label">Filename</div>
+                        <div class="info-value" id="info-filename"></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="material-icons-outlined">calendar_today</span>
+                    <div>
+                        <div class="info-label">Date</div>
+                        <div class="info-value" id="info-date"></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="material-icons-outlined">straighten</span>
+                    <div>
+                        <div class="info-label">Size</div>
+                        <div class="info-value" id="info-size"></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="material-icons-outlined">aspect_ratio</span>
+                    <div>
+                        <div class="info-label">Dimensions</div>
+                        <div class="info-value" id="info-dimensions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SELECTION TOOLBAR ===== -->
+    <div id="selection-toolbar" class="selection-toolbar hidden">
+        <div class="selection-info">
+            <button class="icon-btn" id="btn-deselect">
+                <span class="material-icons-outlined">close</span>
+            </button>
+            <span id="selection-count">0 selected</span>
+        </div>
+        <div class="selection-actions">
+            <button class="icon-btn" id="sel-favorite" title="Add to favorites">
+                <span class="material-icons-outlined">favorite_border</span>
+            </button>
+            <button class="icon-btn" id="sel-album" title="Add to album">
+                <span class="material-icons-outlined">library_add</span>
+            </button>
+            <button class="icon-btn" id="sel-archive" title="Archive">
+                <span class="material-icons-outlined">archive</span>
+            </button>
+            <button class="icon-btn" id="sel-download" title="Download">
+                <span class="material-icons-outlined">file_download</span>
+            </button>
+            <button class="icon-btn" id="sel-delete" title="Delete">
+                <span class="material-icons-outlined">delete_outline</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== TOAST NOTIFICATIONS ===== -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
