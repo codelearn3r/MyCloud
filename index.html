@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="MyCloud - Your personal photo gallery. Upload, organize, and relive your memories beautifully.">
-    <title>MyCloud — Photos & Memories</title>
+        content="MyCloud - Your personal photo & video gallery. Upload, organize, and relive your memories beautifully.">
+    <title>MyCloud — Photos, Videos & Memories</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -146,20 +146,20 @@
         <div class="header-center">
             <div id="search-bar">
                 <span class="material-icons-outlined search-icon">search</span>
-                <input type="text" id="search-input" placeholder="Search your photos" autocomplete="off">
+                <input type="text" id="search-input" placeholder="Search your photos & videos" autocomplete="off">
                 <button id="search-clear" class="icon-btn hidden" aria-label="Clear search">
                     <span class="material-icons-outlined">close</span>
                 </button>
             </div>
         </div>
         <div class="header-right">
-            <button id="btn-upload-header" class="icon-btn" title="Upload photos">
+            <button id="btn-upload-header" class="icon-btn" title="Upload photos & videos">
                 <span class="material-icons-outlined">add_photo_alternate</span>
             </button>
             <button id="btn-grid-toggle" class="icon-btn" title="Change layout">
                 <span class="material-icons-outlined">grid_view</span>
             </button>
-            <button id="btn-select-mode" class="icon-btn" title="Select photos">
+            <button id="btn-select-mode" class="icon-btn" title="Select items">
                 <span class="material-icons-outlined">check_circle_outline</span>
             </button>
             <div id="user-avatar" title="My Account">
@@ -236,10 +236,10 @@
                     <span class="material-icons-outlined">add_a_photo</span>
                 </div>
                 <h3>Your memories start here</h3>
-                <p>Upload your first photos to begin building your cloud gallery</p>
+                <p>Upload your first photos & videos to begin building your cloud gallery</p>
                 <button id="btn-upload-empty" class="btn-primary">
                     <span class="material-icons-outlined">cloud_upload</span>
-                    Upload Photos
+                    Upload Photos & Videos
                 </button>
             </div>
 
@@ -360,7 +360,7 @@
     <div id="upload-modal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">
-                <h3>Upload Photos</h3>
+                <h3>Upload Photos & Videos</h3>
                 <button class="icon-btn modal-close" aria-label="Close">
                     <span class="material-icons-outlined">close</span>
                 </button>
@@ -369,11 +369,11 @@
                 <div id="drop-zone" class="drop-zone">
                     <div class="drop-zone-content">
                         <span class="material-icons-outlined drop-icon">cloud_upload</span>
-                        <h3>Drag & drop photos here</h3>
+                        <h3>Drag & drop photos or videos here</h3>
                         <p>or click to browse files</p>
-                        <span class="drop-formats">Supports JPG, PNG, GIF, WebP</span>
+                        <span class="drop-formats">Supports JPG, PNG, GIF, WebP, MP4, WebM, MOV</span>
                     </div>
-                    <input type="file" id="file-input" multiple accept="image/*" hidden>
+                    <input type="file" id="file-input" multiple accept="image/*,video/*" hidden>
                 </div>
                 <div id="upload-preview" class="upload-preview hidden"></div>
             </div>
@@ -437,6 +437,7 @@
         </button>
         <div class="lightbox-content">
             <img id="lightbox-img" src="" alt="Photo preview">
+            <video id="lightbox-video" class="hidden" controls playsinline preload="metadata"></video>
         </div>
         <button class="lightbox-nav lightbox-next" aria-label="Next">
             <span class="material-icons-outlined">chevron_right</span>
@@ -451,7 +452,7 @@
             </div>
             <div class="info-panel-body">
                 <div class="info-row">
-                    <span class="material-icons-outlined">image</span>
+                    <span class="material-icons-outlined" id="info-type-icon">image</span>
                     <div>
                         <div class="info-label">Filename</div>
                         <div class="info-value" id="info-filename"></div>
@@ -476,6 +477,13 @@
                     <div>
                         <div class="info-label">Dimensions</div>
                         <div class="info-value" id="info-dimensions"></div>
+                    </div>
+                </div>
+                <div class="info-row" id="info-duration-row" style="display:none;">
+                    <span class="material-icons-outlined">timer</span>
+                    <div>
+                        <div class="info-label">Duration</div>
+                        <div class="info-value" id="info-duration"></div>
                     </div>
                 </div>
             </div>
